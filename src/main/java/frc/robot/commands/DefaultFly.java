@@ -29,11 +29,12 @@ public class DefaultFly extends Command {
   protected void execute() {
     double left_joystick_value = OI.gunner.getY(Hand.kLeft);
     System.out.println(left_joystick_value);
-    if(Math.abs(left_joystick_value) < 0.2){
-      Robot.flywheel.getFlywheelTalon().set(0);
+    if(left_joystick_value < 0.2){
+      Robot.flywheel.getFlywheelTalon().set(left_joystick_value *-1);
     } else {
-      Robot.flywheel.getFlywheelTalon().set(left_joystick_value);
+      Robot.flywheel.getFlywheelTalon().set(0);
     }
+
     
 
   }

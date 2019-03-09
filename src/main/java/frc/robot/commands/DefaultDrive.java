@@ -14,6 +14,7 @@ import frc.robot.OI;
 import frc.robot.Robot;
 
 public class DefaultDrive extends Command {
+  int left_servo_value = 72, right_servo_value = 114;
   public DefaultDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -23,15 +24,14 @@ public class DefaultDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.rightServo.setAngle(72);
-    Robot.drivetrain.leftServo.setAngle(36);
+    Robot.drivetrain.rightServo.setAngle(right_servo_value);
+    Robot.drivetrain.leftServo.setAngle(left_servo_value);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   OI.driver.setRumble(RumbleType.kLeftRumble, 0.001);
-   OI.driver.setRumble(RumbleType.kRightRumble, 0.001);
+
     if (Math.abs(OI.driver.getY(Hand.kLeft)) < .1){
       Robot.drivetrain.getTalonLeft(0).set(0);
       Robot.drivetrain.getTalonLeft(1).set(0);
@@ -49,17 +49,9 @@ public class DefaultDrive extends Command {
     Robot.drivetrain.getTalonRight(1).set(OI.driver.getY(Hand.kRight));
     }
 
-    if (OI.driver_button_LB.get()){
-      Robot.drivetrain.leftServo.setAngle(36);
-      Robot.drivetrain.rightServo.setAngle(72);
-    } 
-    if (OI.driver_button_RB.get()){
-      Robot.drivetrain.leftServo.set(72);
-      Robot.drivetrain.rightServo.set(36);
-    }
-
-
-
+    Robot.drivetrain.rightServo.setAngle(right_servo_value);
+    System.out.println("Right Servo Value: " + right_servo_value);
+    System.out.println("Left Servo Value: " + left_servo_value);
   }
 
   // Make this return true when this Command no longer needs to run execute()
